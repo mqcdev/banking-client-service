@@ -1,0 +1,83 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+local:
+  property:
+    host:
+      #ms-bank-account: localhost
+      ms-credits: localhost
+      ms-loan: localhost
+spring:
+  application:
+    name: service-client
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/BankClientDB
+      auto-index-creation: true
+  config:
+    import: optional:configserver:http://ms-config-server:8888
+  cloud:
+    config:
+      # failFast: true
+      retry:
+        initialInterval: 3000
+        multiplier: 1.3
+        maxInterval: 10000
+        maxAttempts: 20
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: myGroup
+    topic:
+      loan:
+        name: loan-topic
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9093/eureka
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      creditCB:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 8
+        slidingWindowType: COUNT_BASED
+      loanCB:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 8
+        slidingWindowType: COUNT_BASED
+
+  retry:
+    instances:
+      usermsclientService:
+        maxRetryAttempts: 5
+        waitDuration: 10s
+
+message:
+  demo: leido desde local
