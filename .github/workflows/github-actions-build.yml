@@ -1,56 +1,38 @@
 name: Build & Deploy Container Image
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  repository_dispatch:
+    types: [docker-build]
 
 jobs:
   build-and-push:
-    name: Container Build & Registry Push
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Java Development Kit
-        uses: actions/setup-java@v4
-        with:
-          java-version: '11'
-          distribution: 'liberica'
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
-      - name: Cache Maven Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-
-      - name: Build Application Artifact
-        run: mvn clean package -DskipTests
-
-      - name: Setup Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Authenticate Docker Registry
+      - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
+          registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build & Push Container Image
-        uses: docker/build-push-action@v5
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
         with:
           context: .
+          file: Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/banking-client-service:latest
-            ${{ secrets.DOCKER_USERNAME }}/banking-client-service:v${{ github.sha }}
+            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/banking-client-service:${{ github.sha }}
+            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/banking-client-service:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+

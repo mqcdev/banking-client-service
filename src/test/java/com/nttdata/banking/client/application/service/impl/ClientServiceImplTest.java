@@ -1,7 +1,6 @@
 package com.nttdata.banking.client.application.service.impl;
 
 import com.nttdata.banking.client.application.validation.ClientValidation;
-import com.nttdata.banking.client.dto.SummaryProductsDto;
 import com.nttdata.banking.client.exception.ResourceNotFoundException;
 import com.nttdata.banking.client.infrastructure.ClientRepository;
 import com.nttdata.banking.client.infrastructure.CreditRepository;
@@ -22,13 +21,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
-
 import java.io.IOException;
 import java.time.Duration;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
 class ClientServiceImplTest {
