@@ -1,0 +1,21 @@
+{
+  "idCredit": "1",
+  "client": {
+    "idClient": "1",
+    "names": "John",
+    "surnames": "Doe",
+    "clientType": "Personal",
+    "documentType": "DNI",
+    "documentNumber": "12345678",
+    "cellphone": 987654321,
+    "email": "john.doe@example.com",
+    "state": true,
+    "profile": null
+  },
+  "creditNumber": 1001,
+  "creditType": "Personal",
+  "creditLineAmount": 5000.0,
+  "currency": "PEN",
+  "status": true,
+  "balance": 2500.0
+}
