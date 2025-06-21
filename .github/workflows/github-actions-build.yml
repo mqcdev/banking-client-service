@@ -50,7 +50,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/banking-config-server:latest
-            ${{ secrets.DOCKER_USERNAME }}/banking-config-server:v${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/banking-client-service:latest
+            ${{ secrets.DOCKER_USERNAME }}/banking-client-service:v${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
