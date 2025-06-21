@@ -15,8 +15,7 @@ import reactor.core.publisher.Flux;
 @RequiredArgsConstructor
 public class LoanConsumer {
 
-    @Autowired
-    private LoanRepository loanRepository;
+    private final LoanRepository loanRepository;
 
     @KafkaListener(topics = "${spring.kafka.topic.loan.name}")
     public void listener(@Payload Loan loan) {
