@@ -5,11 +5,25 @@ import com.nttdata.banking.client.model.Client;
 import reactor.core.publisher.Mono;
 
 /**
- * Class ClientRepository.
- * Client microservice class ClientRepository.
+ * Repository interface for Client entity.
+ * Provides reactive database operations for Client.
  */
 public interface ClientRepository extends ReactiveMongoRepository<Client, String> {
 
-    public Mono<Client> findByDocumentNumber(String documentNumber);
+    /**
+     * Finds a client by document number.
+     *
+     * @param documentNumber the document number to search for
+     * @return Mono<Client> the client if found, empty if not found
+     */
+    Mono<Client> findByDocumentNumber(String documentNumber);
 
+    /**
+     * Finds a client by email address.
+     *
+     * @param email the email address to search for
+     * @return Mono<Client> the client if found, empty if not found
+     */
+    Mono<Client> findByEmail(String email);
 }
+

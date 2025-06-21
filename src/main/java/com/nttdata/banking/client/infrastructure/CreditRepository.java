@@ -4,7 +4,6 @@ import com.nttdata.banking.client.config.WebClientConfig;
 import com.nttdata.banking.client.model.Credit;
 import com.nttdata.banking.client.util.Constants;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
@@ -20,8 +19,12 @@ public class CreditRepository {
     @Value("${local.property.host.ms-credits}")
     private String propertyHostMsCredits;
 
-    @Autowired
-    ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
+
+    final ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
+
+    public CreditRepository(ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory) {
+        this.reactiveCircuitBreakerFactory = reactiveCircuitBreakerFactory;
+    }
 
     @CircuitBreaker(name = Constants.CREDIT_CB, fallbackMethod = "getDefaultCreditsByDocumentNumber")
     public Flux<Credit> findCreditsByDocumentNumber(String documentNumber) {
