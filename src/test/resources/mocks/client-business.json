@@ -1,0 +1,12 @@
+{
+  "idClient": "2",
+  "names": "Company ABC",
+  "surnames": "Corporation",
+  "clientType": "Business",
+  "documentType": "RUC",
+  "documentNumber": "20123456789",
+  "cellphone": 987654322,
+  "email": "contact@companyabc.com",
+  "state": true,
+  "profile": "PYME"
+}

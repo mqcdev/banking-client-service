@@ -1,0 +1,12 @@
+{
+  "idClient": "1",
+  "names": "Jane",
+  "surnames": "Smith",
+  "clientType": "Personal",
+  "documentType": "DNI",
+  "documentNumber": "87654321",
+  "cellphone": 987654320,
+  "email": "jane.smith@example.com",
+  "state": true,
+  "profile": "VIP"
+}

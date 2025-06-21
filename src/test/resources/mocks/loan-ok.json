@@ -1,0 +1,22 @@
+{
+  "idLoan": "1",
+  "client": {
+    "idClient": "1",
+    "names": "John",
+    "surnames": "Doe",
+    "clientType": "Personal",
+    "documentType": "DNI",
+    "documentNumber": "12345678",
+    "cellphone": 987654321,
+    "email": "john.doe@example.com",
+    "state": true,
+    "profile": null
+  },
+  "loanNumber": 2001,
+  "loanType": "Personal",
+  "loanAmount": 10000.0,
+  "currency": "PEN",
+  "numberQuotas": 12,
+  "status": "ACTIVE",
+  "debtBalance": 8500.0
+}
