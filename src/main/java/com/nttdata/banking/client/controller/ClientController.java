@@ -4,11 +4,10 @@ import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import com.nttdata.banking.client.application.ClientService;
+import com.nttdata.banking.client.application.service.ClientService;
 import com.nttdata.banking.client.dto.SummaryProductsDto;
 import com.nttdata.banking.client.model.Client;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
@@ -24,11 +23,15 @@ import javax.validation.Valid;
 @RequestMapping("/api/clients")
 @RefreshScope
 public class ClientController {
+
     @Value("${message.demo}")
     private String demoString;
 
-    @Autowired
-    private ClientService service;
+    private final ClientService service;
+
+    public ClientController(ClientService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public Mono<ResponseEntity<Flux<Client>>> listClients() {
