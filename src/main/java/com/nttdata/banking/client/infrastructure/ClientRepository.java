@@ -25,5 +25,10 @@ public interface ClientRepository extends ReactiveMongoRepository<Client, String
      * @return Mono<Client> the client if found, empty if not found
      */
     Mono<Client> findByEmail(String email);
+
+    Mono<Boolean> existsUserEntityByEmail(final String email);
+    Mono<Client> findUserEntityByEmail(final String email);
+
+
 }
 
