@@ -1,6 +1,11 @@
 package com.nttdata.banking.client.dto.response;
 
-import lombok.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
 
 /**
  * Represents a response named {@link TokenResponse} containing tokens for authentication.

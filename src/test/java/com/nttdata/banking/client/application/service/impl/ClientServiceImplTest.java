@@ -1,7 +1,6 @@
 package com.nttdata.banking.client.application.service.impl;
 
 import com.nttdata.banking.client.application.validation.ClientValidation;
-import com.nttdata.banking.client.dto.SummaryProductsDto;
 import com.nttdata.banking.client.exception.ResourceNotFoundException;
 import com.nttdata.banking.client.infrastructure.ClientRepository;
 import com.nttdata.banking.client.infrastructure.CreditRepository;

@@ -2,7 +2,7 @@ package com.nttdata.banking.client.filter;
 
 import com.nttdata.banking.client.application.service.InvalidTokenService;
 import com.nttdata.banking.client.application.service.TokenService;
-import com.nttdata.banking.client.util.TokenUtils; // Importar la nueva clase utilitaria
+import com.nttdata.banking.client.util.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;

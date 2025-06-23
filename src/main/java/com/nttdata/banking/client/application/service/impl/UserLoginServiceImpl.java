@@ -4,7 +4,6 @@ import com.nttdata.banking.client.application.service.TokenService;
 import com.nttdata.banking.client.application.service.UserLoginService;
 import com.nttdata.banking.client.dto.request.LoginRequest;
 import com.nttdata.banking.client.exception.UserNotFoundException;
-import com.nttdata.banking.client.model.Client;
 import com.nttdata.banking.client.model.Token;
 import com.nttdata.banking.client.infrastructure.ClientRepository;
 import lombok.RequiredArgsConstructor;
