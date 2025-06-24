@@ -26,5 +26,4 @@ public class InvalidTokenEntity {
     private LocalDateTime updatedAt;
     private String updatedBy;
 
-
 }

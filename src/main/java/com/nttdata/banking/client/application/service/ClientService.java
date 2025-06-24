@@ -2,8 +2,11 @@ package com.nttdata.banking.client.application.service;
 
 import com.nttdata.banking.client.dto.SummaryProductsDto;
 import com.nttdata.banking.client.model.Client;
+import com.nttdata.banking.client.model.InvalidTokenEntity;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Set;
 
 /**
  * Class ClientService.
@@ -27,4 +30,11 @@ public interface ClientService {
 
     Mono<SummaryProductsDto> getSummaryOfCustomersProducts(String documentNumber);
 
+    Mono<Boolean> existsUserEntityByEmail(final String email);
+
+    Mono<Client> findUserEntityByEmail(final String email);
+
+    Mono<Void> saveAllInvalidTokens(Set<InvalidTokenEntity> invalidTokenEntities);
+
+    Mono<InvalidTokenEntity> findInvalidTokenByTokenId(String tokenId);
 }

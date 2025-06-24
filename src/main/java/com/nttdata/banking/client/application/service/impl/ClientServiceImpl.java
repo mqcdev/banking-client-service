@@ -6,13 +6,17 @@ import com.nttdata.banking.client.dto.SummaryProductsDto;
 import com.nttdata.banking.client.exception.ResourceNotFoundException;
 import com.nttdata.banking.client.infrastructure.ClientRepository;
 import com.nttdata.banking.client.infrastructure.CreditRepository;
+import com.nttdata.banking.client.infrastructure.InvalidTokenRepository;
 import com.nttdata.banking.client.infrastructure.LoanRepository;
 import com.nttdata.banking.client.model.Client;
+import com.nttdata.banking.client.model.InvalidTokenEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -29,6 +33,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Autowired
     private ClientValidation clientValidation;
+
+    @Autowired
+    private InvalidTokenRepository invalidTokenRepository;
 
     @Override
     public Flux<Client> findAll() {
@@ -136,5 +143,25 @@ public class ClientServiceImpl implements ClientService {
                                         mapperDtoCredit.mapperToSummaryProductsDtoOfCredit(credits, loans, documentNumber)
                                 )
                 );
+    }
+
+    @Override
+    public Mono<Boolean> existsUserEntityByEmail(final String email) {
+        return clientRepository.existsUserEntityByEmail(email);
+    }
+
+    @Override
+    public Mono<Client> findUserEntityByEmail(final String email) {
+        return clientRepository.findUserEntityByEmail(email);
+    }
+
+    @Override
+    public Mono<Void> saveAllInvalidTokens(Set<InvalidTokenEntity> invalidTokenEntities) {
+        return invalidTokenRepository.saveAll(invalidTokenEntities).then();
+    }
+
+    @Override
+    public Mono<InvalidTokenEntity> findInvalidTokenByTokenId(String tokenId) {
+        return invalidTokenRepository.findByTokenId(tokenId);
     }
 }

@@ -4,11 +4,15 @@ import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import com.nttdata.banking.client.application.service.*;
 import com.nttdata.banking.client.dto.SummaryProductsDto;
+import com.nttdata.banking.client.infrastructure.InvalidTokenRepository;
 import com.nttdata.banking.client.model.Client;
+import com.nttdata.banking.client.model.InvalidTokenEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
@@ -84,5 +88,30 @@ public class ClientController {
                 .map(c -> ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
                         .body(c))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/find-by-email")
+    public Mono<Client> findUserEntityByEmail(@RequestParam String email) {
+        return service.findUserEntityByEmail(email);
+    }
+
+    @PostMapping("/save")
+    public Mono<Client> save(@RequestBody Client client) {
+        return service.save(client);
+    }
+
+    @PostMapping("/tokens/save-invalid")
+    public Mono<Void> saveAllInvalidTokens(@RequestBody Set<InvalidTokenEntity> invalidTokenEntities) {
+        return service.saveAllInvalidTokens(invalidTokenEntities);
+    }
+
+    @GetMapping("/tokens/find-invalid")
+    public Mono<InvalidTokenEntity> findInvalidTokenByTokenId(@RequestParam String tokenId) {
+        return service.findInvalidTokenByTokenId(tokenId);
+    }
+
+    @GetMapping("/exists-by-email")
+    public Mono<Boolean> existsUserEntityByEmail(@RequestParam String email) {
+        return service.existsUserEntityByEmail(email);
     }
 }
